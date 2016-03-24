@@ -1,30 +1,31 @@
 #include "ThreadManagerTest.h"
 
+#include "../ThreadPool-Lib/ThreadManagerExceptions.hpp"
+#include "../ThreadPool-Lib/ThreadManager.h"
 
-ThreadManagerTest::ThreadManagerTest() {
-    _t_manager = ThreadManager();
-    _init();
+
+ThreadManagerTest::ThreadManagerTest() {}
+
+ThreadManagerTest::~ThreadManagerTest() {}
+
+
+void ThreadManagerTest::_job_one() {
+	for (; _incremental_test < 60; ++_incremental_test)
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
-ThreadManagerTest::~ThreadManagerTest() {
+void ThreadManagerTest::_job_two() {
 }
-
-
-void ThreadManagerTest::_init() {
-    _t_manager.join();
-    _t_manager = ThreadManager();
-    _incremental_test = 0;
-}
-
 
 bool ThreadManagerTest::TestStopAndStart() {
-    _init();
+	ThreadManager t_manager{};
+	_incremental_test = 0;
 
-    _t_manager.setJob(&_job_one);
-    _t_manager.start();
+	t_manager.setJob(&ThreadManagerTest::_job_one);
+	t_manager.start();
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
-    _t_manager.stop();
+	t_manager.stop();
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     int checker = _incremental_test;
@@ -36,10 +37,36 @@ bool ThreadManagerTest::TestStopAndStart() {
     return true;
 }
 
-void ThreadManagerTest::_job_one() {
-    for (; _incremental_test < 60; ++_incremental_test)
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+bool ThreadManagerTest::TestSetJobSucceed()
+{
+	auto retour(false);
+	ThreadManager t_manager{};
+	
+	try {
+		t_manager.setJob(&ThreadManagerTest::_job_two);
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		t_manager.setJob(&ThreadManagerTest::_job_two);
+
+		retour = true;
+	} catch (const ThreadManagerExceptions& m) {
+	} catch (const std::exception& e) {}
+
+	return retour;
 }
 
-void ThreadManagerTest::_job_two() {
+bool ThreadManagerTest::TestSetJobFailed()
+{
+	auto retour(false);
+	ThreadManager t_manager{};
+
+	try {
+		t_manager.setJob(&ThreadManagerTest::_job_one);
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		t_manager.setJob(&ThreadManagerTest::_job_two);
+	}
+	catch (const ThreadManagerExceptions& e) {
+		retour = true;
+	} catch (const std::exception& e) {}
+
+	return retour;
 }

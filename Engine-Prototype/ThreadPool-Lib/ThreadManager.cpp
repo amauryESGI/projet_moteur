@@ -3,7 +3,7 @@
 #include "ThreadManagerExceptions.hpp"
 
 
-ThreadManager::ThreadManager() : _isRunning(false), _isDetached(false), _isJoin(false), _isStoped(true) {
+ThreadManager::ThreadManager() : _isStoped(true), _isJoin(false), _hasJob(false) {
     _t = std::thread(std::bind(&ThreadManager::_work, this));
 }
 

@@ -22,8 +22,6 @@ private:
     bool        _isStoped;
     bool        _isJoin;
     bool        _hasJob;
-    bool        _isRunning;
-    bool        _isDetached;
     std::thread _t;
     std::mutex  _mutex;
     std::condition_variable _condition_variable;

@@ -1,21 +1,22 @@
 #pragma once
 
-#include <iostream>
 #include <string>
 #include <exception>
 
-struct ThreadManagerExceptions : public std::exception {
-    ThreadManagerExceptions(int thrId) {
+struct ThreadManagerExceptions : std::exception {
+	explicit ThreadManagerExceptions(int thrId) {
         err_msg = "";
         err_msg += std::to_string(th_id);
         th_id = thrId;
     }
 
-    virtual const char* what() const throw() {
-        return err_msg.c_str();
-    }
+	const char* what() const throw() override;
 
-    
-    std::string err_msg;
+
+	std::string err_msg;
     int th_id;
 };
+
+inline const char* ThreadManagerExceptions::what() const {
+	return err_msg.c_str();
+}
