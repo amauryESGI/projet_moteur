@@ -1,14 +1,4 @@
-﻿La génération a démarré 3/24/2016 6:23:15 PM.
-     1>Projet "C:\Users\User\Documents\GitHub\projet_moteur\Engine-Prototype\ThreadPool-Lib\ThreadPool-Lib.vcxproj" sur le nœud 2 (Build cible(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ThreadManager.cpp
-         ThreadManager.cpp
-       Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\User\Documents\GitHub\projet_moteur\Engine-Prototype\Debug\ThreadPool-Lib.lib" /NOLOGO Debug\ThreadManager.obj
-         Debug\ThreadPool.obj
-         ThreadPool-Lib.vcxproj -> C:\Users\User\Documents\GitHub\projet_moteur\Engine-Prototype\Debug\ThreadPool-Lib.lib
-     1>Génération du projet "C:\Users\User\Documents\GitHub\projet_moteur\Engine-Prototype\ThreadPool-Lib\ThreadPool-Lib.vcxproj" terminée (Build cible(s)).
-
-La génération a réussi.
-
-Temps écoulé 00:00:00.51
+﻿  ThreadPool.cpp
+  ThreadManager.cpp
+  Génération de code en cours...
+  ThreadPool-Lib.vcxproj -> D:\Users\Emerick Lecomte\Mes documents\GitHub\projet_moteur\Engine-Prototype\Debug\ThreadPool-Lib.lib

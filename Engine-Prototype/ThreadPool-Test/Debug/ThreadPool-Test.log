@@ -1,0 +1,7 @@
+﻿  ThreadManagerTest.cpp
+d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-test\threadmanagertest.cpp(7): error C2280: 'std::thread &std::thread::operator =(const std::thread &)' : tentative de référencement d'une fonction supprimée
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\thread(71) : voir la déclaration de 'std::thread::operator ='
+          Le diagnostic s'est produit dans la fonction 'ThreadManager &ThreadManager::operator =(const ThreadManager &)' générée par le compilateur
+d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-test\threadmanagertest.cpp(23): error C2276: '&' : opération non conforme sur l'expression d'une fonction membre liée
+  Main.cpp
+  Génération de code en cours...
