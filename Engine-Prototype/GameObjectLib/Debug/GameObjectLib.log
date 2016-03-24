@@ -1,0 +1,8 @@
+﻿  Stdafx.cpp
+  AssemblyInfo.cpp
+  GameObjectLib.cpp
+  Génération de code en cours...
+  .NETFramework,Version=v4.5.2.AssemblyAttributes.cpp
+  AssemblyInfo.obj : /DEBUG:FASTLINK n'est pas pris en charge en présence de code managé ; redémarrage de l'édition des liens avec /DEBUG:FULL
+  GameObjectLib.vcxproj -> D:\Users\Emerick Lecomte\Mes documents\GitHub\projet_moteur\Engine-Prototype\Debug\GameObjectLib.dll
+  GameObjectLib.vcxproj -> D:\Users\Emerick Lecomte\Mes documents\GitHub\projet_moteur\Engine-Prototype\Debug\GameObjectLib.pdb (Partial PDB)
