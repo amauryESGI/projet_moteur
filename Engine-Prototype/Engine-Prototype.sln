@@ -14,6 +14,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThreadPool-Lib", "ThreadPool-Lib\ThreadPool-Lib.vcxproj", "{61B6B2A1-D290-4450-8953-D30D15B0DC19}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThreadPool-Test", "ThreadPool-Test\ThreadPool-Test.vcxproj", "{9F66FB70-13AA-41DD-B52F-6446B4EA496A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{61B6B2A1-D290-4450-8953-D30D15B0DC19} = {61B6B2A1-D290-4450-8953-D30D15B0DC19}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

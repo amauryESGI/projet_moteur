@@ -75,6 +75,15 @@
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ThreadManager.h" />
+    <ClInclude Include="ThreadManagerExceptions.hpp" />
+    <ClInclude Include="ThreadPool.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ThreadManager.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
