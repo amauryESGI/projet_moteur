@@ -28,8 +28,7 @@ struct AllocateMemoryInfos
 
 	~AllocateMemoryInfos() {}
 
-	bool isTypeOf(std::string id)
-	{
+	bool isTypeOf(std::string id) const {
 		return id == this->TypeName;
 	}
 };
@@ -42,6 +41,7 @@ public:
 	template<typename T>
 	void Allocate(int count)
 	{
+		// TODO : For all (T*) => static_cast, const_cast, reinterpret_cast ??
 		T* objPtr = (T*)malloc(count * sizeof(T));
 
 		T* endPtr = objPtr;
@@ -49,6 +49,7 @@ public:
 			++endPtr;
 
 		AllocateMemoryInfos meminfos(objPtr, endPtr, 0, count, typeid(T).name());
+		// TODO : FreeList* beginList = static_cast<FreeList*>(malloc(count * sizeof(FreeList)));
 		FreeList* beginList = (FreeList*)malloc(count * sizeof(FreeList));
 		meminfos.NextFreeElement = beginList;
 		meminfos.FreeListStart = beginList;
@@ -148,6 +149,7 @@ private:
 	{
 		int i = -1;
 		bool found = false;
+		// TODO : while (!found  && i < static_cast<int>(this->AllocationPtr.size()) - 1)
 		while (!found  && i < (int)this->AllocationPtr.size() -1 )
 		{
 			++i;

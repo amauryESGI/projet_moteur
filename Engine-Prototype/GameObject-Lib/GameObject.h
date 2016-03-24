@@ -13,8 +13,8 @@ class GameObject
 public:
 	GameObject(std::string name);
 
-	std::string getName() { return this->Name; }
-	Vec3 getPosition() { return this->transform.Position; }
+	std::string	getName() const		{ return this->Name; }
+	Vec3		getPosition() const	{ return this->transform.Position; }
 
 	void GameObject::AddComponent(Component* comp);
 
