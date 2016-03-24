@@ -2,15 +2,29 @@
 #include <vector>
 #include <iostream>
 
+struct FreeList
+{
+	void* ElementPtr;
+	FreeList* NextFreeElement;
+};
+
 struct AllocateMemoryInfos
 {
-	void* Ptr;
+	void* BeginPtr;
+	void* EndPtr;
 	int Count;
 	int AllocatedElement;
 	std::string TypeName;
 
+	FreeList* FreeListStart;
+	FreeList* NextFreeElement;
+
 	AllocateMemoryInfos() {}
-	AllocateMemoryInfos(void* ptr, int count, int allocatedelement, std::string typeName) : Ptr(ptr), Count(count), AllocatedElement(allocatedelement), TypeName(typeName) {}
+	AllocateMemoryInfos(void* ptr, void* endPtr, int allocatedElement, int count, std::string typeName) : BeginPtr(ptr), EndPtr(endPtr), AllocatedElement(allocatedElement), Count(count), TypeName(typeName) 
+	{
+
+	
+	}
 
 	~AllocateMemoryInfos() {}
 
@@ -30,7 +44,26 @@ public:
 	{
 		T* objPtr = (T*)malloc(count * sizeof(T));
 
-		AllocationPtr.push_back(AllocateMemoryInfos(objPtr, count, 0, typeid(T).name()));
+		T* endPtr = objPtr;
+		for (int i = 0; i < count; ++i)
+			++endPtr;
+
+		AllocateMemoryInfos meminfos(objPtr, endPtr, 0, count, typeid(T).name());
+		FreeList* beginList = (FreeList*)malloc(count * sizeof(FreeList));
+		meminfos.NextFreeElement = beginList;
+		meminfos.FreeListStart = beginList;
+
+		T* tmpPtr = objPtr;
+		FreeList* tmp = beginList;
+		for (int i = 0; i < count; ++i)
+		{
+			tmp->ElementPtr = tmpPtr;
+			++tmpPtr;
+			tmp->NextFreeElement = tmp + 1;
+			++tmp;
+		}
+
+		AllocationPtr.push_back(meminfos);
 	}
 
 	template<typename T>
@@ -42,7 +75,7 @@ public:
 		{
 			if (i < this->AllocationPtr.size() )
 			{
-				T* tmpPtr = (T*)this->AllocationPtr[i].Ptr;
+				T* tmpPtr = (T*)this->AllocationPtr[i].BeginPtr;
 				
 				tmpPtr += this->AllocationPtr[i].AllocatedElement;
 				++this->AllocationPtr[i].AllocatedElement;
@@ -60,17 +93,21 @@ public:
 
 		if (i < this->AllocationPtr.size())
 		{
-			T* beginPtr = (T*)this->AllocationPtr[i].Ptr;
-			T* endPtr = (T*)this->AllocationPtr[i].Ptr;
+			T* beginPtr = (T*)this->AllocationPtr[i].BeginPtr;
+			T* endPtr = (T*)this->AllocationPtr[i].EndPtr;
 
-			for (int j = 0; j < this->AllocationPtr[i].Count; ++j)
-				++endPtr;
-
-			if (beginPtr < obj || endPtr > obj)
+			if ( obj < beginPtr || obj > endPtr)
 				return;
+
+			free(this->AllocationPtr[i].FreeListStart);
 
 			obj->~T();
 			free(obj);
+
+			this->AllocationPtr[i] = this->AllocationPtr[this->AllocationPtr.size() - 1];
+			this->AllocationPtr.resize(this->AllocationPtr.size() - 1);
+
+			--this->AllocationPtr[i].AllocatedElement;
 		}
 	}
 
@@ -82,15 +119,16 @@ public:
 
 		if (i < this->AllocationPtr.size())
 		{
-			T* ptr = (T*)this->AllocationPtr[i].Ptr;
+			T* ptr = (T*)this->AllocationPtr[i].BeginPtr;
 			for (int j = 0; j < this->AllocationPtr[i].Count; ++j)
 			{
 				ptr->~T();
 			}
 
+			free(this->AllocationPtr[i].FreeListStart);
 
-			free(this->AllocationPtr[i].Ptr);
-			this->AllocationPtr[i].Ptr = nullptr;
+			free(this->AllocationPtr[i].BeginPtr);
+			this->AllocationPtr[i].BeginPtr = nullptr;
 
 			this->AllocationPtr[i] = this->AllocationPtr[this->AllocationPtr.size() - 1];
 			this->AllocationPtr.resize(this->AllocationPtr.size() - 1);
@@ -106,13 +144,53 @@ private:
 	{
 		int i = -1;
 		bool found = false;
-		while (!found  && i < (int)this->AllocationPtr.size())
+		while (!found  && i < (int)this->AllocationPtr.size() -1 )
 		{
 			++i;
 			found = this->AllocationPtr[i].isTypeOf(typeName);
 		}
 
 		return i;
+	}
+
+	template<typename T>
+	T* GetNextFreeMemory(AllocateMemoryInfos memInfos)
+	{
+		T* ptr =  (T*)memInfos.NextFreeElement->ElementPtr;
+		memInfos.NextFreeElement = memInfos.NextFreeElement->NextFreeElement;
+	}
+
+	template<typename T>
+	void RemoveOccupedMemory(AllocateMemoryInfos memInfos, T* elementRemoved)
+	{
+		bool found = false;
+		FreeList* currentPtr = memInfos.FreeListStart - 1;
+		FreeList* nextPtr = memInfos.NextFreeElement;
+		FreeList* previousPtr = memInfos.NextFreeElement;
+		int i = 0;
+		while (!found && i < memInfos.Count)
+		{
+			++currentPtr;
+			if (currentPtr->ElementPtr == elementRemoved)
+				found = true;
+			++i;
+		}
+
+		if (found)
+		{
+			while (true)
+			{
+				if (currentPtr < nextPtr)
+				{
+					currentPtr->NextFreeElement = nextPtr;
+					previousPtr = currentPtr;
+				}
+
+				previousPtr = nextPtr;
+				nextPtr = previousPtr->NextFreeElement;
+				
+			}
+		}
 	}
 };
 
