@@ -6,7 +6,6 @@ MemoryPool::MemoryPool()
 {
 }
 
-
 MemoryPool::~MemoryPool()
 {
 }
