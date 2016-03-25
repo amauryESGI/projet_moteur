@@ -3,7 +3,7 @@
 #include "ThreadManagerExceptions.hpp"
 
 
-ThreadManager::ThreadManager() : _isStoped(true), _isJoin(false), _hasJob(false) {
+ThreadManager::ThreadManager() : _currentState(DEFAULT), _isJoin(false), _hasJob(false) {
     _t = std::thread(std::bind(&ThreadManager::_work, this));
 }
 
@@ -12,28 +12,30 @@ ThreadManager::~ThreadManager() {
 }
 
 void ThreadManager::start() {
-    _isStoped = false;
+    _currentState = START;
     _condition_variable.notify_one();
 }
 
 void ThreadManager::stop() {
     /*if (_isJoin) // can't stop if is join
         throw ThreadManagerExceptions(0);*/
-    _isStoped = true;
+    _currentState = STOP;
 }
 
 void ThreadManager::join() {
     _isJoin = true;
-    if (_isStoped)
+    if (_currentState == STOP)
         start();
 
+    _currentState = JOIN;
     _t.join();
 }
 
-void ThreadManager::setJob(const std::function<void(void)>& f) {
+void ThreadManager::setJob(Job& newJob) {
     if (_hasJob)
         throw ThreadManagerExceptions(0);
-    _doJob = f;
+
+    _currentJob = newJob;
     _hasJob = true;
 }
 
@@ -43,12 +45,12 @@ void ThreadManager::_work() {
 
     do {
         if (_hasJob) {
-            _doJob();
+            _currentJob.task();
             _hasJob = false;
         } else
             std::this_thread::yield();
 
-        if (_isStoped && !_isJoin)
+        if (_currentState == STOP && !_isJoin)
             _condition_variable.wait(locker);
 
     } while (!_isJoin);

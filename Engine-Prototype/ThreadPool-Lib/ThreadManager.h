@@ -2,7 +2,9 @@
 
 #include <thread>
 #include <condition_variable>
-#include <functional>
+
+#include "Job.h"
+#include "ThreadState.h"
 
 class ThreadManager {
 public:
@@ -13,13 +15,18 @@ public:
     void stop();
     void join();
 
-    void setJob(const std::function<void(void)>& f);
+    void setJob(Job& newJob);
+    ThreadState GetState() const {
+        if (_currentJob.isBlocked())
+            return BLOCK;
+        return _currentState;
+    }
 
 private:
     void _work();
-    std::function<void(void)> _doJob;
 
-    bool        _isStoped;
+    Job&        _currentJob;
+    ThreadState _currentState;
     bool        _isJoin;
     bool        _hasJob;
     std::thread _t;
