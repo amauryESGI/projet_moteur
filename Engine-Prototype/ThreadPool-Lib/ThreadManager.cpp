@@ -31,7 +31,7 @@ void ThreadManager::join() {
     _t.join();
 }
 
-void ThreadManager::setJob(Job& newJob) {
+void ThreadManager::SetJob(Job* newJob) {
     if (_hasJob)
         throw ThreadManagerExceptions(0);
 
@@ -45,7 +45,7 @@ void ThreadManager::_work() {
 
     do {
         if (_hasJob) {
-            _currentJob.task();
+            _currentJob->task();
             _hasJob = false;
         } else
             std::this_thread::yield();

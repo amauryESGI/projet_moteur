@@ -16,16 +16,16 @@ public:
 	void Start();
     //void StartWithPriority();
 
-	void Stop()					{ _isStoped = true; }
-	void AddJob(Job& new_job)	{ _queue_job.emplace(new_job); };
+	void Stop()					    { _isStoped = true; }
+	void AddJob(Job* new_job)	{ _queue_job.emplace(new_job); };
 
 private:
 	void _rescueGateway();
 	void _run();
 
-    int  _nbThreadPref;
-	bool _isStoped;
-	std::vector<ThreadManager&> _pool;
+    unsigned int                _nbThreadPref;
+	bool                        _isStoped;
+    std::vector<ThreadManager*>  _pool;
+    std::queue<Job*>            _queue_job;
 	// std::list<Job>	_list_job; Todo it on ThreadPoolWithPriority
-	std::queue<Job&>	_queue_job;
 };

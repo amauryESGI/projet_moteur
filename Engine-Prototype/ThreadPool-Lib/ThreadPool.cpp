@@ -6,31 +6,33 @@
 ThreadPool::ThreadPool() : _isStoped(false) {
     _nbThreadPref = std::thread::hardware_concurrency() - 1;
 
-    for (size_t i = 0; i < _nbThreadPref * 2; i++)
-        _pool.push_back(ThreadManager());
+    for (unsigned int i = 0; i < _nbThreadPref * 2; i++)
+        _pool.push_back(new ThreadManager());
 }
 
 
 ThreadPool::~ThreadPool() {
     Stop();
 
-    //for (auto i = 0; i < _pool.size(); ++i)
-        //_pool[i].Join();
+    for (unsigned int i = 0; i < _pool.size(); ++i)
+        _pool[i]->join();
 }
 
 void ThreadPool::Start() {
-    int nb_start, nb_blocked;
+    unsigned int nb_start, nb_blocked;
 
     while (!_isStoped) {
         nb_start = nb_blocked = 0;
 
-        if (_queue_job.size() <= 1) {
-            for(auto mt : _pool) {
-                if (!mt.GetState() == STOP) {
+        if (_queue_job.size() > 0) {
+            for (unsigned int i = 0; i < _pool.size(); ++i) {
+                if (_pool[i]->GetState() == STOP) {
                     ++nb_start;
-                    if (mt.HasJob())
-                        mt.SetJob(_queue_job.pop());
-                    if (mt.GetStat() == BLOCK)
+                    if (_pool[i]->HasJob()) {
+                        _pool[i]->SetJob(_queue_job.front());
+                        _queue_job.pop();
+                    }
+                    if (_pool[i]->GetState() == BLOCK)
                         ++nb_blocked;
                 }
             }
@@ -38,13 +40,13 @@ void ThreadPool::Start() {
             int tmp = nb_start - nb_blocked;
             if (nb_start - nb_blocked < 0) {
                 if (nb_start < _pool.size())
-                    for(auto mt : _pool)
-                        if (mt.GetState() == STOP) {
-                            mt.start();
+                    for (unsigned int i = 0; i < _pool.size(); ++i)
+                        if (_pool[i]->GetState() == STOP) {
+                            _pool[i]->start();
                             break;
                         }
-                    else
-                        _rescueGateway();
+                else
+                    _rescueGateway();
             } else
                 std::this_thread::yield();
         } else
@@ -53,5 +55,5 @@ void ThreadPool::Start() {
 }
 
 void ThreadPool::_rescueGateway() {
-    _pool.push_back(ThreadManager());
+    _pool.push_back(new ThreadManager());
 }

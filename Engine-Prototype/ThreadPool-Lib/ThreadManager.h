@@ -15,9 +15,10 @@ public:
     void stop();
     void join();
 
-    void setJob(Job& newJob);
-    ThreadState GetState() const {
-        if (_currentJob.isBlocked())
+    bool HasJob() const { return _hasJob; }
+    void SetJob(Job* newJob);
+    ThreadState GetState() {
+        if (_currentJob->isBlocked())
             return BLOCK;
         return _currentState;
     }
@@ -25,7 +26,7 @@ public:
 private:
     void _work();
 
-    Job&        _currentJob;
+    Job*        _currentJob;
     ThreadState _currentState;
     bool        _isJoin;
     bool        _hasJob;

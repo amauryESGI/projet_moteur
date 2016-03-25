@@ -5,6 +5,7 @@
 class Job
 {
 public:
+    Job();
 	Job(const std::function<void(void)>& work, int priority = 10);
 	~Job();
 
