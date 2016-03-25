@@ -3,7 +3,7 @@
 #include <thread>
 #include <condition_variable>
 
-#include "Job.h"
+#include "Job.hpp"
 #include "ThreadState.h"
 
 class ThreadManager {
@@ -18,7 +18,7 @@ public:
     bool HasJob() const { return _hasJob; }
     void SetJob(Job* newJob);
     ThreadState GetState() {
-        if (_currentJob->isBlocked())
+        if (_hasJob && !_currentJob->isBlocked())
             return BLOCK;
         return _currentState;
     }

@@ -76,14 +76,13 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Job.h" />
+    <ClInclude Include="Job.hpp" />
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="ThreadManagerExceptions.hpp" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="ThreadState.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Job.cpp" />
     <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
   </ItemGroup>

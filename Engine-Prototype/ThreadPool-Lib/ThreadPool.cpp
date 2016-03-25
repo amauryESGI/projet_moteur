@@ -18,7 +18,11 @@ ThreadPool::~ThreadPool() {
         _pool[i]->join();
 }
 
-void ThreadPool::Start() {
+void ThreadPool::_rescueGateway() {
+    _pool.push_back(new ThreadManager());
+}
+
+void ThreadPool::_scheduler() {
     unsigned int nb_start, nb_blocked;
 
     while (!_isStoped) {
@@ -26,9 +30,9 @@ void ThreadPool::Start() {
 
         if (_queue_job.size() > 0) {
             for (unsigned int i = 0; i < _pool.size(); ++i) {
-                if (_pool[i]->GetState() == STOP) {
+                if (_pool[i]->GetState() == START) {
                     ++nb_start;
-                    if (_pool[i]->HasJob()) {
+                    if (!_pool[i]->HasJob()) {
                         _pool[i]->SetJob(_queue_job.front());
                         _queue_job.pop();
                     }
@@ -38,22 +42,19 @@ void ThreadPool::Start() {
             }
 
             int tmp = nb_start - nb_blocked;
-            if (nb_start - nb_blocked < 0) {
-                if (nb_start < _pool.size())
-                    for (unsigned int i = 0; i < _pool.size(); ++i)
-                        if (_pool[i]->GetState() == STOP) {
+            if (nb_start - nb_blocked <= 0) {
+                if (nb_blocked != _pool.size()) {
+                    for (unsigned int i = 0; i < _pool.size(); ++i) {
+                        if (_pool[i]->GetState() == STOP || _pool[i]->GetState() == DEFAULT) {
                             _pool[i]->start();
                             break;
                         }
-                else
+                    }
+                } else
                     _rescueGateway();
             } else
                 std::this_thread::yield();
         } else
             std::this_thread::yield();
     }
-}
-
-void ThreadPool::_rescueGateway() {
-    _pool.push_back(new ThreadManager());
 }

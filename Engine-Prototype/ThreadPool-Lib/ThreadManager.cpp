@@ -3,7 +3,7 @@
 #include "ThreadManagerExceptions.hpp"
 
 
-ThreadManager::ThreadManager() : _currentState(DEFAULT), _isJoin(false), _hasJob(false) {
+ThreadManager::ThreadManager() : _currentState(DEFAULT), _isJoin(false), _hasJob(false), _currentJob(nullptr) {
     _t = std::thread(std::bind(&ThreadManager::_work, this));
 }
 
@@ -45,7 +45,7 @@ void ThreadManager::_work() {
 
     do {
         if (_hasJob) {
-            _currentJob->task();
+            _currentJob->task(_currentJob->GetBegin(), _currentJob->GetEnd());
             _hasJob = false;
         } else
             std::this_thread::yield();
@@ -55,18 +55,3 @@ void ThreadManager::_work() {
 
     } while (!_isJoin);
 }
-
-
-//void f() {
-//
-//    ThreadManager m;
-//
-//    try {
-//        m.setJob(nullptr);
-//    } catch (const ThreadManagerExceptions& e) {
-//        e.what();
-//    }
-//    catch (const std::exception& e) {
-//        e.what();
-//    }
-//}
