@@ -22,8 +22,6 @@ struct AllocateMemoryInfos
 	AllocateMemoryInfos() {}
 	AllocateMemoryInfos(void* ptr, void* endPtr, int allocatedElement, int count, std::string typeName) : BeginPtr(ptr), EndPtr(endPtr), AllocatedElement(allocatedElement), Count(count), TypeName(typeName) 
 	{
-
-	
 	}
 
 	~AllocateMemoryInfos() {}
@@ -55,7 +53,7 @@ public:
 		meminfos.FreeListStart = beginList;
 
 		FreeList* tmp;
-		for (int i = 0; i < count-1; ++i)
+		for (int i = 0; i < count; ++i)
 		{
 			beginList->ElementPtr = objPtr;
 			++objPtr;
@@ -73,20 +71,23 @@ public:
 	{
 		int i = this->GetAllocationPtrIndex(typeid(T).name());
 
-		if (i < this->AllocationPtr.size() )
+		if (this->AllocationPtr[i].AllocatedElement < this->AllocationPtr[i].Count)
 		{
-			T* tmpPtr = (T*)this->AllocationPtr[i].BeginPtr;
-				
-			tmpPtr = GetNextFreeMemory<T>(this->AllocationPtr[i]);
-			if (tmpPtr != nullptr)
+			if (i < this->AllocationPtr.size())
 			{
-				++this->AllocationPtr[i].AllocatedElement;
-				new(tmpPtr) T();
+				T* tmpPtr = (T*)this->AllocationPtr[i].BeginPtr;
+
+				tmpPtr = GetNextFreeMemory<T>(this->AllocationPtr[i]);
+				if (tmpPtr != nullptr)
+				{
+					++this->AllocationPtr[i].AllocatedElement;
+					new(tmpPtr) T();
+				}
+				else {
+					std::cout << "Stack full" << std::endl;
+				}
+				return tmpPtr;
 			}
-			else {
-				std::cout << "Stack full" << std::endl;
-			}
-			return tmpPtr;
 		}
 
 		return nullptr;
@@ -108,10 +109,6 @@ public:
 			RemoveOccupedMemory<T>(this->AllocationPtr[i], obj);
 
 			obj->~T();
-			free(obj);
-
-			this->AllocationPtr[i] = this->AllocationPtr[this->AllocationPtr.size() - 1];
-			this->AllocationPtr.resize(this->AllocationPtr.size() - 1);
 
 			--this->AllocationPtr[i].AllocatedElement;
 		}
@@ -160,7 +157,7 @@ private:
 	}
 
 	template<typename T>
-	T* GetNextFreeMemory(AllocateMemoryInfos memInfos)
+	T* GetNextFreeMemory(AllocateMemoryInfos& memInfos)
 	{
 		T* ptr =  (T*)memInfos.NextFreeElement->ElementPtr;
 		memInfos.NextFreeElement = memInfos.NextFreeElement->NextFreeElement;
@@ -168,12 +165,10 @@ private:
 	}
 
 	template<typename T>
-	void RemoveOccupedMemory(AllocateMemoryInfos memInfos, T* elementRemoved)
+	void RemoveOccupedMemory(AllocateMemoryInfos& memInfos, T* elementRemoved)
 	{
 		bool found = false;
 		FreeList* currentPtr = memInfos.FreeListStart - 1;
-		FreeList* nextPtr = memInfos.NextFreeElement;
-		FreeList* previousPtr = memInfos.NextFreeElement;
 		int i = 0;
 		while (!found && i < memInfos.Count)
 		{
@@ -185,27 +180,31 @@ private:
 
 		if (found)
 		{
-			found = false;
-			if (currentPtr < previousPtr)
-			{
-				currentPtr->NextFreeElement = memInfos.NextFreeElement;
-				memInfos.NextFreeElement = currentPtr;
-				found = true;
-			}
 
-			while (!found && nextPtr != nullptr)
-			{
-				previousPtr = nextPtr;
-				nextPtr = previousPtr->NextFreeElement;
+			currentPtr->NextFreeElement = memInfos.NextFreeElement;
+			memInfos.NextFreeElement = currentPtr;
 
-				if (currentPtr < nextPtr)
-				{
-					currentPtr->NextFreeElement = nextPtr;
-					previousPtr->NextFreeElement = currentPtr;
-					found = true;
-				}
-				
-			}
+			//FreeList* previousPtr = memInfos.NextFreeElement;
+			//FreeList* nextPtr = memInfos.NextFreeElement->NextFreeElement;
+			//while (!found && nextPtr != nullptr)
+			//{
+			//	if (currentPtr > previousPtr && currentPtr < nextPtr)
+			//	{
+			//		previousPtr->NextFreeElement = currentPtr;
+			//		currentPtr->NextFreeElement = nextPtr;
+			//		found = true;
+			//	}
+
+			//	previousPtr = nextPtr;
+			//	nextPtr = previousPtr->NextFreeElement;
+
+			//}
+
+			//if (nextPtr == nullptr)
+			//{
+			//	previousPtr->NextFreeElement = currentPtr;
+			//	currentPtr->NextFreeElement = nextPtr;
+			//}
 		}
 	}
 };
