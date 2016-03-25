@@ -1,4 +1,173 @@
 ﻿  ThreadPool.cpp
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(516): error C2528: 'pointer' : pointeur non conforme vers la référence
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\type_traits(572) : voir la référence à l'instanciation de la classe modèle 'std::allocator<_Ty>' en cours de compilation
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : voir la référence à l'instanciation de la classe modèle 'std::is_empty<_Alloc>' en cours de compilation
+          with
+          [
+              _Alloc=std::allocator<ThreadManager &>
+          ]
+          d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadpool.h(28) : voir la référence à l'instanciation de la classe modèle 'std::vector<ThreadManager &,std::allocator<_Ty>>' en cours de compilation
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(517): error C2528: 'const_pointer' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(548): error C2535: 'ThreadManager &(*std::allocator<_Ty>::address(ThreadManager &) throw() const)' : fonction membre déjà définie ou déclarée
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(542) : voir la déclaration de 'std::allocator<_Ty>::address'
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(586): error C2528: '_Ptr' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(591): error C2528: '_Ptr' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(683): error C2528: 'pointer' : pointeur non conforme vers la référence
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(755) : voir la référence à l'instanciation de la classe modèle 'std::allocator_traits<_Alloc>' en cours de compilation
+          with
+          [
+              _Alloc=std::allocator<ThreadManager &>
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(443) : voir la référence à l'instanciation de la classe modèle 'std::_Wrap_alloc<std::allocator<_Ty>>' en cours de compilation
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(579) : voir la référence à l'instanciation de la classe modèle 'std::_Vec_base_types<_Ty,_Alloc>' en cours de compilation
+          with
+          [
+              _Ty=ThreadManager &
+  ,            _Alloc=std::allocator<ThreadManager &>
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(652) : voir la référence à l'instanciation de la classe modèle 'std::_Vector_alloc<false,std::_Vec_base_types<_Ty,_Alloc>>' en cours de compilation
+          with
+          [
+              _Ty=ThreadManager &
+  ,            _Alloc=std::allocator<ThreadManager &>
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(684): error C2528: 'const_pointer' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(795): error C2535: 'ThreadManager &(*std::_Wrap_alloc<std::allocator<_Ty>>::address(ThreadManager &) const)' : fonction membre déjà définie ou déclarée
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(789) : voir la déclaration de 'std::_Wrap_alloc<std::allocator<_Ty>>::address'
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(861): error C2528: '_Ptr' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(105): error C2528: 'abstract declarator' : pointeur non conforme vers la référence
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(449) : voir la référence à l'instanciation de la classe modèle 'std::_Is_simple_alloc<std::_Wrap_alloc<std::allocator<_Ty>>>' en cours de compilation
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(107): error C2528: 'abstract declarator' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(122): error C2528: 'pointer' : pointeur non conforme vers la référence
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(469) : voir la référence à l'instanciation de la classe modèle 'std::_Simple_types<ThreadManager &>' en cours de compilation
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(580) : voir la référence à l'instanciation de la classe modèle 'std::_Vector_val<std::_Simple_types<ThreadManager &>>' en cours de compilation
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(123): error C2528: 'const_pointer' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(797): error C2528: '_Pval' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(1243): error C2535: 'void std::vector<ThreadManager &,std::allocator<_Ty>>::push_back(ThreadManager &)' : fonction membre déjà définie ou déclarée
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(864) : voir la déclaration de 'std::vector<ThreadManager &,std::allocator<_Ty>>::push_back'
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(1327): error C2535: 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<ThreadManager &>>> std::vector<ThreadManager &,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<ThreadManager &>>>,_Ty)' : fonction membre déjà définie ou déclarée
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(887) : voir la déclaration de 'std::vector<ThreadManager &,std::allocator<_Ty>>::insert'
+          with
+          [
+              _Ty=ThreadManager &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(1581): error C2528: '_Ptr' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(1745): error C2528: '_Pval' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(548): error C2535: 'Job &(*std::allocator<_Ty>::address(Job &) throw() const)' : fonction membre déjà définie ou déclarée
+          with
+          [
+              _Ty=Job &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(542) : voir la déclaration de 'std::allocator<_Ty>::address'
+          with
+          [
+              _Ty=Job &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(795): error C2535: 'Job &(*std::_Wrap_alloc<std::allocator<_Ty>>::address(Job &) const)' : fonction membre déjà définie ou déclarée
+          with
+          [
+              _Ty=Job &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\xmemory0(789) : voir la déclaration de 'std::_Wrap_alloc<std::allocator<_Ty>>::address'
+          with
+          [
+              _Ty=Job &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\deque(720): error C2528: '_Mapptr' : pointeur non conforme vers la référence
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\deque(1425): error C2535: 'void std::deque<_Ty,std::allocator<_Ty>>::push_front(Job &)' : fonction membre déjà définie ou déclarée
+          with
+          [
+              _Ty=Job &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\deque(1118) : voir la déclaration de 'std::deque<_Ty,std::allocator<_Ty>>::push_front'
+          with
+          [
+              _Ty=Job &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\deque(1462): error C2535: 'void std::deque<_Ty,std::allocator<_Ty>>::push_back(Job &)' : fonction membre déjà définie ou déclarée
+          with
+          [
+              _Ty=Job &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\deque(1128) : voir la déclaration de 'std::deque<_Ty,std::allocator<_Ty>>::push_back'
+          with
+          [
+              _Ty=Job &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\deque(1515): error C2535: 'std::_Deque_iterator<std::_Deque_val<std::_Deque_simple_types<Job &>>> std::deque<_Ty,std::allocator<_Ty>>::insert(std::_Deque_const_iterator<std::_Deque_val<std::_Deque_simple_types<_Ty>>>,_Ty)' : fonction membre déjà définie ou déclarée
+          with
+          [
+              _Ty=Job &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\deque(1138) : voir la déclaration de 'std::deque<_Ty,std::allocator<_Ty>>::insert'
+          with
+          [
+              _Ty=Job &
+          ]
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\queue(151): error C2535: 'void std::queue<Job &,std::deque<_Ty,std::allocator<_Ty>>>::push(Job &)' : fonction membre déjà définie ou déclarée
+          with
+          [
+              _Ty=Job &
+          ]
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\queue(108) : voir la déclaration de 'std::queue<Job &,std::deque<_Ty,std::allocator<_Ty>>>::push'
+          with
+          [
+              _Ty=Job &
+          ]
+d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadpool.cpp(9): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadpool.cpp(29): warning C4806: '==' : opération risquée : aucune valeur de type 'bool' promue en type 'ThreadState' ne peut être égale à la constante donnée
+d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadpool.cpp(31): error C2039: 'HasJob' : n'est pas membre de 'ThreadManager'
+          d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadmanager.h(9) : voir la déclaration de 'ThreadManager'
+d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadpool.cpp(32): error C2039: 'SetJob' : n'est pas membre de 'ThreadManager'
+          d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadmanager.h(9) : voir la déclaration de 'ThreadManager'
+d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadpool.cpp(33): error C2039: 'GetStat' : n'est pas membre de 'ThreadManager'
+          d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadmanager.h(9) : voir la déclaration de 'ThreadManager'
+d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadpool.cpp(40): warning C4018: '<' : incompatibilité signed/unsigned
   ThreadManager.cpp
+d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadmanager.cpp(6): error C2758: 'ThreadManager::_currentJob' : un membre de type référence const doit être initialisé
+          d:\users\emerick lecomte\mes documents\github\projet_moteur\engine-prototype\threadpool-lib\threadmanager.h(28) : voir la déclaration de 'ThreadManager::_currentJob'
   Génération de code en cours...
-  ThreadPool-Lib.vcxproj -> D:\Users\Emerick Lecomte\Mes documents\GitHub\projet_moteur\Engine-Prototype\Debug\ThreadPool-Lib.lib

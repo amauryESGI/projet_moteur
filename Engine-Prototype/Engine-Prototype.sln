@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameObject-Lib", "GameObject-Lib\GameObject-Lib.vcxproj", "{9F7700C9-2377-4123-B974-F0B04F69C740}"
 EndProject
@@ -13,12 +13,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemoryPool-Test", "MemoryPo
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameObject-Test", "GameObject-Test\GameObject-Test.vcxproj", "{76E51423-F053-4E8B-AFE7-0EF29D26041D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F7700C9-2377-4123-B974-F0B04F69C740} = {9F7700C9-2377-4123-B974-F0B04F69C740}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThreadPool-Lib", "ThreadPool-Lib\ThreadPool-Lib.vcxproj", "{61B6B2A1-D290-4450-8953-D30D15B0DC19}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThreadPool-Test", "ThreadPool-Test\ThreadPool-Test.vcxproj", "{9F66FB70-13AA-41DD-B52F-6446B4EA496A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{61B6B2A1-D290-4450-8953-D30D15B0DC19} = {61B6B2A1-D290-4450-8953-D30D15B0DC19}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{82B879F9-D8AF-46F0-837E-B326C040B7F5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3BAE6367-6ED1-4176-B012-81261414FCB4} = {3BAE6367-6ED1-4176-B012-81261414FCB4}
+		{61B6B2A1-D290-4450-8953-D30D15B0DC19} = {61B6B2A1-D290-4450-8953-D30D15B0DC19}
+		{9F7700C9-2377-4123-B974-F0B04F69C740} = {9F7700C9-2377-4123-B974-F0B04F69C740}
 	EndProjectSection
 EndProject
 Global
@@ -125,6 +135,22 @@ Global
 		{9F66FB70-13AA-41DD-B52F-6446B4EA496A}.Release|x64.ActiveCfg = Release|Win32
 		{9F66FB70-13AA-41DD-B52F-6446B4EA496A}.Release|x86.ActiveCfg = Release|Win32
 		{9F66FB70-13AA-41DD-B52F-6446B4EA496A}.Release|x86.Build.0 = Release|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Debug|Win32.Build.0 = Debug|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Debug|x64.ActiveCfg = Debug|x64
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Debug|x64.Build.0 = Debug|x64
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Debug|x86.ActiveCfg = Debug|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Debug|x86.Build.0 = Debug|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Release|Win32.ActiveCfg = Release|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Release|Win32.Build.0 = Release|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Release|x64.ActiveCfg = Release|x64
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Release|x64.Build.0 = Release|x64
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Release|x86.ActiveCfg = Release|Win32
+		{82B879F9-D8AF-46F0-837E-B326C040B7F5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
